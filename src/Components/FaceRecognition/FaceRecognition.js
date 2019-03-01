@@ -3,12 +3,10 @@ import LoadingOverlay from 'react-loading-overlay';
 
 import './FaceRecognition.css'
 
-const FaceRecognition = ({imageURL, detectionStatus, detectionBoxArray}) => {
-	const isDetecting = detectionStatus==='running';
-	const isSuccessful = detectionStatus==='success';
+const FaceRecognition = ({imageURL, isDetecting, detectionBoxArray}) => {
 	let detectionBoxElements = [];
 	let i=0;
-	if (isSuccessful) {
+	if (!isDetecting) {
 			detectionBoxElements = detectionBoxArray.map((detectionBox) => {
 				i++;
 				return <div className='bounding-box' key={i}

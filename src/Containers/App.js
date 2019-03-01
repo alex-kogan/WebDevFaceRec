@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
   return {
     imageInput: state.imageInput.imageInputField,  // state holds the method searchRobots (as a reducres) which holds the method searchField once more reducers are added we need to name from which one we need the state
     imageURL: state.detectionButton.imageURL,
-    detectionStatus: state.detectionButton.detectionStatus,
+    isDetecting: state.detectionButton.isDetecting,
     detectedFace: state.detectionButton.detectedFaces,
     detectionError: state.detectionButton.error
   }
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 class App extends Component {
   render() {
     const {onInputChange,
-          onDetectClick, imageURL, detectionStatus, detectedFace, detectionError} = this.props
+          onDetectClick, imageURL, isDetecting, detectedFace, detectionError} = this.props
     return (
       <div className="App">
         <Navigation/>
@@ -41,7 +41,7 @@ class App extends Component {
         />
         <FaceRecognition
           imageURL={imageURL}
-          detectionStatus={detectionStatus}
+          isDetecting={isDetecting}
           detectionBoxArray={detectedFace}
           detectionError={detectionError}
         />
