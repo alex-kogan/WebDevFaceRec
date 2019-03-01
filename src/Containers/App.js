@@ -35,26 +35,30 @@ class App extends Component {
     const {onInputChange,
           onDetectClick, imageURL, isDetecting, detectedFace, detectionError,
           onSignInClick, onSignOutClick, appRoute} = this.props
+    // routing
+    let appBody = []
+    if (appRoute==='sign_in')
+      appBody = <SignInPage onSignInClick={onSignInClick}/>;
+    else
+      appBody = <div>
+                  <Logo/>
+                  <Rank/>
+                  <ImageLinkForm
+                    inputChange={onInputChange}
+                    detectClick={onDetectClick}
+                  />
+                  <FaceRecognition
+                    imageURL={imageURL}
+                    isDetecting={isDetecting}
+                    detectionBoxArray={detectedFace}
+                    detectionError={detectionError}
+                  />
+                </div>;
+    // end routing          
     return (
       <div className="App">
         <Navigation onSignOutClick={onSignOutClick}/>
-        { appRoute==='sign_in'
-          ?  <SignInPage onSignInClick={onSignInClick}/>
-          : <div>
-              <Logo/>
-              <Rank/>
-              <ImageLinkForm
-                inputChange={onInputChange}
-                detectClick={onDetectClick}
-              />
-              <FaceRecognition
-                imageURL={imageURL}
-                isDetecting={isDetecting}
-                detectionBoxArray={detectedFace}
-                detectionError={detectionError}
-              />
-            </div>
-        }
+        {appBody}
       </div>
     );
   }
