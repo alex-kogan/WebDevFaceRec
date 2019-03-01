@@ -9,10 +9,10 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
-import {imageInput, detectionButton} from './Reducers.js'
+import {imageInput, detectionButton, appRoute} from './Reducers.js'
 
 const logger = createLogger();
-const rootReducer = combineReducers ({imageInput, detectionButton});
+const rootReducer = combineReducers ({imageInput, detectionButton, appRoute});
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(<Provider store={store}>

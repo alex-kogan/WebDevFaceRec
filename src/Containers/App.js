@@ -5,9 +5,10 @@ import Logo from '../Components/Logo/Logo';
 import ImageLinkForm from '../Components/ImageLinkForm/ImageLinkForm';
 import Rank from '../Components/Rank/Rank';
 import FaceRecognition from '../Components/FaceRecognition/FaceRecognition';
+import SignInPage from '../Components/SignInPage/SignInPage';
 import './App.css';
 
-import {setImageInput, detectImage} from '../Actions.js'
+import {setImageInput, detectImage, routeChange} from '../Actions.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -15,36 +16,45 @@ const mapStateToProps = (state) => {
     imageURL: state.detectionButton.imageURL,
     isDetecting: state.detectionButton.isDetecting,
     detectedFace: state.detectionButton.detectedFaces,
-    detectionError: state.detectionButton.error
+    detectionError: state.detectionButton.error,
+    appRoute: state.appRoute.route
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onInputChange: (event) => dispatch (setImageInput(event.target.value)),
-    onDetectClick: () => dispatch (detectImage()) 
+    onDetectClick: () => dispatch(detectImage()),
+    onSignInClick: () => dispatch(routeChange('home')),
+    onSignOutClick: () => dispatch(routeChange('sign_in'))
   }
 }
 
 class App extends Component {
   render() {
     const {onInputChange,
-          onDetectClick, imageURL, isDetecting, detectedFace, detectionError} = this.props
+          onDetectClick, imageURL, isDetecting, detectedFace, detectionError,
+          onSignInClick, onSignOutClick, appRoute} = this.props
     return (
       <div className="App">
-        <Navigation/>
-        <Logo/>
-        <Rank/>
-        <ImageLinkForm
-          inputChange={onInputChange}
-          detectClick={onDetectClick}
-        />
-        <FaceRecognition
-          imageURL={imageURL}
-          isDetecting={isDetecting}
-          detectionBoxArray={detectedFace}
-          detectionError={detectionError}
-        />
+        <Navigation onSignOutClick={onSignOutClick}/>
+        { appRoute==='sign_in'
+          ?  <SignInPage onSignInClick={onSignInClick}/>
+          : <div>
+              <Logo/>
+              <Rank/>
+              <ImageLinkForm
+                inputChange={onInputChange}
+                detectClick={onDetectClick}
+              />
+              <FaceRecognition
+                imageURL={imageURL}
+                isDetecting={isDetecting}
+                detectionBoxArray={detectedFace}
+                detectionError={detectionError}
+              />
+            </div>
+        }
       </div>
     );
   }
