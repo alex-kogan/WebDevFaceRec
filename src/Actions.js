@@ -2,7 +2,9 @@ import {CHANGE_IMAGE_INPUT,
 				FACE_DETECTION_RUNNING,
 				FACE_DETECTION_SUCCESS,
 				FACE_DETECTION_FAIL,
-				ROUTE_CHANGE
+				ROUTE_CHANGE,
+				SIGN_IN,
+				SIGN_OUT
 } from './Constants.js';
 
 //import Clarifai from 'calrifai';
@@ -57,4 +59,14 @@ export const detectImage = () => (dispatch, getState) => {
 
 export const routeChange = (destination) => {
 	return ({type: ROUTE_CHANGE, payload: destination});
+};
+
+export const signIn = () => (dispatch, getState) => {
+	dispatch ({type: SIGN_IN, payload: true});
+	dispatch ({type: ROUTE_CHANGE, payload: 'home'});
+};
+
+export const signOut = () => (dispatch, getState) => {
+	dispatch ({type: SIGN_OUT, payload: false});
+	dispatch ({type: ROUTE_CHANGE, payload: 'sign_in'});
 };

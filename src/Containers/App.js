@@ -6,9 +6,10 @@ import ImageLinkForm from '../Components/ImageLinkForm/ImageLinkForm';
 import Rank from '../Components/Rank/Rank';
 import FaceRecognition from '../Components/FaceRecognition/FaceRecognition';
 import SignInPage from '../Components/SignInPage/SignInPage';
+import Register from '../Components/Register/Register';
 import './App.css';
 
-import {setImageInput, detectImage, routeChange} from '../Actions.js'
+import {setImageInput, detectImage, routeChange, signIn, signOut} from '../Actions.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -17,7 +18,8 @@ const mapStateToProps = (state) => {
     isDetecting: state.detectionButton.isDetecting,
     detectedFace: state.detectionButton.detectedFaces,
     detectionError: state.detectionButton.error,
-    appRoute: state.appRoute.route
+    appRoute: state.appRoute.route,
+    signedIn: state.signInStatus.signIn
   }
 }
 
@@ -25,8 +27,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onInputChange: (event) => dispatch (setImageInput(event.target.value)),
     onDetectClick: () => dispatch(detectImage()),
-    onSignInClick: () => dispatch(routeChange('home')),
-    onSignOutClick: () => dispatch(routeChange('sign_in'))
+    onSignInClick: () => dispatch(signIn()),
+    onSignOutClick: () => dispatch(signOut()),
+    onRouteChange: (event) => dispatch(routeChange(event.target.title))
   }
 }
 
@@ -34,31 +37,39 @@ class App extends Component {
   render() {
     const {onInputChange,
           onDetectClick, imageURL, isDetecting, detectedFace, detectionError,
-          onSignInClick, onSignOutClick, appRoute} = this.props
+          onSignInClick, onSignOutClick, onRouteChange,
+          appRoute, signedIn} = this.props;
     // routing
-    let appBody = []
-    if (appRoute==='sign_in')
-      appBody = <SignInPage onSignInClick={onSignInClick}/>;
-    else
-      appBody = <div>
-                  <Logo/>
-                  <Rank/>
-                  <ImageLinkForm
-                    inputChange={onInputChange}
-                    detectClick={onDetectClick}
-                  />
-                  <FaceRecognition
-                    imageURL={imageURL}
-                    isDetecting={isDetecting}
-                    detectionBoxArray={detectedFace}
-                    detectionError={detectionError}
-                  />
-                </div>;
+    const appBody = (appRoute) => {
+      switch (appRoute) {
+        case 'sign_in':
+          return <SignInPage onSignInClick={onSignInClick} onRouteChange={onRouteChange}/>;
+        case 'home':
+          return <div>
+                      <Logo/>
+                      <Rank/>
+                      <ImageLinkForm
+                        inputChange={onInputChange}
+                        detectClick={onDetectClick}
+                      />
+                      <FaceRecognition
+                        imageURL={imageURL}
+                        isDetecting={isDetecting}
+                        detectionBoxArray={detectedFace}
+                        detectionError={detectionError}
+                      />
+                    </div>;
+          case 'register':
+            return <Register onSignInClick={onSignInClick}/>
+          default:
+            return <div></div>;
+      }
+    }
     // end routing          
     return (
       <div className="App">
-        <Navigation onSignOutClick={onSignOutClick}/>
-        {appBody}
+        <Navigation onSignOutClick={onSignOutClick} singedIn={signedIn} onRouteChange={onRouteChange}/>
+        {appBody(appRoute)}
       </div>
     );
   }

@@ -2,7 +2,9 @@ import {CHANGE_IMAGE_INPUT,
 				FACE_DETECTION_RUNNING,
 				FACE_DETECTION_SUCCESS,
 				FACE_DETECTION_FAIL,
-				ROUTE_CHANGE
+				ROUTE_CHANGE,
+				SIGN_IN,
+				SIGN_OUT
 } from './Constants.js'
 
 const initialImageInput = {
@@ -46,6 +48,21 @@ export const appRoute = (state=initialStateRoute, action={}) => {
 	switch(action.type) {
 		case ROUTE_CHANGE:
 			return Object.assign({}, state, {route: action.payload});
+		default:
+			return state;
+	}
+}
+
+const initialStateSignIn = {
+	signIn: false
+}
+
+export const signInStatus = (state=initialStateSignIn, action={}) => {
+	switch(action.type) {
+		case SIGN_IN:
+			return Object.assign({}, state, {signIn: action.payload});
+		case SIGN_OUT:
+			return Object.assign({}, state, {signIn: action.payload});
 		default:
 			return state;
 	}
