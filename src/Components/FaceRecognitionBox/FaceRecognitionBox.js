@@ -1,15 +1,13 @@
 import React from 'react';
 import LoadingOverlay from 'react-loading-overlay';
 
-import './FaceRecognition.css'
+import './FaceRecognitionBox.css'
 
-const FaceRecognition = ({imageURL, isDetecting, detectionBoxArray}) => {
+const FaceRecognitionBox = ({imageURL, isDetecting, detectionBoxArray}) => {
 	let detectionBoxElements = [];
-	let i=0;
 	if (!isDetecting) {
-			detectionBoxElements = detectionBoxArray.map((detectionBox) => {
-				i++;
-				return <div className='bounding-box' key={i}
+			detectionBoxElements = detectionBoxArray.map((detectionBox, index) => {
+				return <div className='bounding-box' key={index}
 							style={{top: detectionBox.topRow, right: detectionBox.rightCol, bottom:detectionBox.bottomRow, left:detectionBox.leftCol}}>
 							</div>;
 			});
@@ -28,4 +26,5 @@ const FaceRecognition = ({imageURL, isDetecting, detectionBoxArray}) => {
 		</div>
 	)		
 }
-export default FaceRecognition
+
+export default FaceRecognitionBox

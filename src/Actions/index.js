@@ -1,18 +1,11 @@
-import {CHANGE_IMAGE_INPUT,
-				FACE_DETECTION_RUNNING,
-				FACE_DETECTION_SUCCESS,
-				FACE_DETECTION_FAIL,
-				ROUTE_CHANGE,
-				SIGN_IN,
-				SIGN_OUT
-} from './Constants.js';
+import {appConstants} from '../Constants.js';
 
 //import Clarifai from 'calrifai';
 
 const Clarifai = require('clarifai');
 
 export const setImageInput = (imageURL) => ({
-	type: CHANGE_IMAGE_INPUT,
+	type: appConstants.CHANGE_IMAGE_INPUT,
 	payload: imageURL
 });
 
@@ -41,11 +34,11 @@ const calcFaceLoaction = (response) => {
 
 export const detectImage = () => (dispatch, getState) => {
 	const imageInputField = getState().imageInput.imageInputField;
-	dispatch({type: FACE_DETECTION_RUNNING, payload: imageInputField});
+	dispatch({type: appConstants.FACE_DETECTION_RUNNING, payload: imageInputField});
 	app.models.predict(Clarifai.FACE_DETECT_MODEL, imageInputField)
 	.then((response) => {return calcFaceLoaction(response)})
-	.then((faceLocation) => dispatch({type: FACE_DETECTION_SUCCESS, payload: faceLocation}))
-  .catch(error => dispatch({type: FACE_DETECTION_FAIL, payload: error}));
+	.then((faceLocation) => dispatch({type: appConstants.FACE_DETECTION_SUCCESS, payload: faceLocation}))
+  .catch(error => dispatch({type: appConstants.FACE_DETECTION_FAIL, payload: error}));
 };
 
 //this is like wrting function detectImage ()
@@ -58,15 +51,15 @@ export const detectImage = () => (dispatch, getState) => {
 // }
 
 export const routeChange = (destination) => {
-	return ({type: ROUTE_CHANGE, payload: destination});
+	return ({type: appConstants.ROUTE_CHANGE, payload: destination});
 };
 
 export const signIn = () => (dispatch, getState) => {
-	dispatch ({type: SIGN_IN, payload: true});
-	dispatch ({type: ROUTE_CHANGE, payload: 'home'});
+	dispatch ({type: appConstants.SIGN_IN, payload: true});
+	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'home'});
 };
 
 export const signOut = () => (dispatch, getState) => {
-	dispatch ({type: SIGN_OUT, payload: false});
-	dispatch ({type: ROUTE_CHANGE, payload: 'sign_in'});
+	dispatch ({type: appConstants.SIGN_OUT, payload: false});
+	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'sign_in'});
 };

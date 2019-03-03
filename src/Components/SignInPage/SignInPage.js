@@ -35,8 +35,8 @@ const SignInPage = ({onSignInClick, onRouteChange}) => {
             />
           </div>
           <div className="lh-copy mt3">
-            <p className="f6 link dim black db pointer"
-              onClick={() => onRouteChange('register')}>
+            <p className="f6 link dim black db pointer" title='register'
+              onClick={onRouteChange}>
               Register
             </p>
           </div>
