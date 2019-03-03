@@ -25,7 +25,7 @@ const App = ({onSignInClick, onSignOutClick, onRouteChange,signedIn,appRoute}) =
                     <FaceRecognition/>
                   </div>;
         case 'register':
-          return <Register onSignInClick={onSignInClick}/>
+          return <Register onRegisterClick={onSignInClick}/>
         default:
           return <div></div>;
     }
