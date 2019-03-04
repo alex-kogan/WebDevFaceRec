@@ -55,7 +55,6 @@ const RegisterPage = ({dispatch}) => {
                 registerData.email = document.getElementById('email-address').value;
                 registerData.password = document.getElementById('password').value;
                 dispatch(register(registerData));
-                dispatch(routeChange('home'))
                 }
               }
             />

@@ -22,7 +22,7 @@ const App = ({signedIn,appRoute, onSignOutClick, onRouteChange}) => {
   const appBody = (route) => {
     switch (route) {
       case 'sign_in':
-        return <SignInPage/>;
+        return <SignInPage singedIn={signedIn}/>;
       case 'home':
         return <div>
                     <Logo/>

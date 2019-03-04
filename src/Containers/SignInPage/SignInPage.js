@@ -5,7 +5,7 @@ import {signIn, routeChange} from '../../Actions';
 
 // hybrid component
 
-const SignInPage = ({dispatch}) => {
+const SignInPage = ({dispatch, singedIn}) => {
   let signInData = {
     email: '',
     password: ''
@@ -44,7 +44,6 @@ const SignInPage = ({dispatch}) => {
                 signInData.email = document.getElementById('email-address').value;
                 signInData.password = document.getElementById('password').value;
                 dispatch(signIn(signInData));
-                dispatch(routeChange('home'))
                 }
               }
             />
