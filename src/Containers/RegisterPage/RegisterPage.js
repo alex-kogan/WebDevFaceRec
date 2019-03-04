@@ -1,6 +1,16 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-const registerPage = ({onRegisterClick}) => {
+import {register, routeChange} from '../../Actions';
+
+// hybrid component
+
+const RegisterPage = ({dispatch}) => {
+  let registerData = {
+    name: '',
+    email: '',
+    password: ''
+  }
   return (  
     <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
       <main className="pa4 black-80">
@@ -40,7 +50,14 @@ const registerPage = ({onRegisterClick}) => {
               className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
               type="submit"
               value="Register"
-              onClick={onRegisterClick}
+              onClick={() => {
+                registerData.name = document.getElementById('name').value;
+                registerData.email = document.getElementById('email-address').value;
+                registerData.password = document.getElementById('password').value;
+                dispatch(register(registerData));
+                dispatch(routeChange('home'))
+                }
+              }
             />
           </div>
         </div>
@@ -49,4 +66,4 @@ const registerPage = ({onRegisterClick}) => {
   );
 }
 
-export default registerPage;
+export default connect()(RegisterPage);

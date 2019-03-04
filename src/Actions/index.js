@@ -54,12 +54,16 @@ export const routeChange = (destination) => {
 	return ({type: appConstants.ROUTE_CHANGE, payload: destination});
 };
 
-export const signIn = () => (dispatch, getState) => {
-	dispatch ({type: appConstants.SIGN_IN, payload: true});
-	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'home'});
+export const signIn = (text) => {
+	console.log(text);
+	return ({type: appConstants.SIGN_IN, payload: true});
 };
 
-export const signOut = () => (dispatch, getState) => {
-	dispatch ({type: appConstants.SIGN_OUT, payload: false});
-	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'sign_in'});
+export const register = (text) => {
+	console.log(text);
+	return ({type: appConstants.REGISTER, payload: true});
+};
+
+export const signOut = () => {
+	return ({type: appConstants.SIGN_OUT, payload: false});
 };

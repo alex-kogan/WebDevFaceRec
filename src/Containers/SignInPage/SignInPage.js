@@ -1,6 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-const SignInPage = ({onSignInClick, onRouteChange}) => {
+import {signIn, routeChange} from '../../Actions';
+
+// hybrid component
+
+const SignInPage = ({dispatch}) => {
+  let signInData = {
+    email: '',
+    password: ''
+  }
   return (
     <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
       <main className="pa4 black-80">
@@ -31,12 +40,21 @@ const SignInPage = ({onSignInClick, onRouteChange}) => {
               className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
               type="submit"
               value="Sign in"
-              onClick={onSignInClick}
+              onClick={() => {
+                signInData.email = document.getElementById('email-address').value;
+                signInData.password = document.getElementById('password').value;
+                dispatch(signIn(signInData));
+                dispatch(routeChange('home'))
+                }
+              }
             />
           </div>
           <div className="lh-copy mt3">
-            <p className="f6 link dim black db pointer" title='register'
-              onClick={onRouteChange}>
+            <p className="f6 link dim black db pointer"
+              onClick={() => {
+                dispatch(routeChange('register'))
+                }
+              }>
               Register
             </p>
           </div>
@@ -46,4 +64,4 @@ const SignInPage = ({onSignInClick, onRouteChange}) => {
   );
 }
 
-export default SignInPage;
+export default connect()(SignInPage);

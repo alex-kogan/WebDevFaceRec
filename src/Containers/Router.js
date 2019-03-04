@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 
 import App from '../Components/App/App';
 
-import {routeChange, signIn, signOut} from '../Actions'
+import {routeChange, signOut} from '../Actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -13,9 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSignInClick: () => dispatch(signIn()),
     onSignOutClick: () => dispatch(signOut()),
-    onRouteChange: (event) => dispatch(routeChange(event.target.title))
+    onRouteChange: (destination) => dispatch(routeChange(destination))
   }
 }
 
