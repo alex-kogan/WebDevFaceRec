@@ -66,6 +66,7 @@ export const register = (text) => (dispatch) =>  {
 	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'home'});
 };
 
-export const signOut = () => {
-	return ({type: appConstants.SIGN_OUT, payload: false});
+export const signOut = () => (dispatch) => {
+	dispatch ({type: appConstants.SIGN_OUT, payload: false});
+	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'sign_in'});
 };

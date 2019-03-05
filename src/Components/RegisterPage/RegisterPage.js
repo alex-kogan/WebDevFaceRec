@@ -1,11 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
-import {register, routeChange} from '../../Actions';
-
-// hybrid component
-
-const RegisterPage = ({dispatch}) => {
+const RegisterPage = ({onRegisterClick}) => {
   let registerData = {
     name: '',
     email: '',
@@ -54,7 +49,7 @@ const RegisterPage = ({dispatch}) => {
                 registerData.name = document.getElementById('name').value;
                 registerData.email = document.getElementById('email-address').value;
                 registerData.password = document.getElementById('password').value;
-                dispatch(register(registerData));
+                onRegisterClick(registerData);
                 }
               }
             />
@@ -65,4 +60,4 @@ const RegisterPage = ({dispatch}) => {
   );
 }
 
-export default connect()(RegisterPage);
+export default RegisterPage;

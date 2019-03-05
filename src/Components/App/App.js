@@ -2,17 +2,16 @@ import React from 'react';
 
 import InputImage from '../../Containers/InputImage';
 import FaceRecognition from '../../Containers/FaceRecognition';
-import SignInPage from '../../Containers/SignInPage/SignInPage';
-import RegisterPage from '../../Containers/RegisterPage/RegisterPage';
 
+import RegisterPage from '../../Components/RegisterPage/RegisterPage';
+import SignInPage from '../../Components/SignInPage/SignInPage';
 import Navigation from '../../Components/Navigation/Navigation';
 import Logo from '../../Components/Logo/Logo';
 import Rank from '../../Components/Rank/Rank';
 
-
 import './App.css';
 
-const App = ({signedIn,appRoute, onSignOutClick, onRouteChange}) => {
+const App = ({signedIn,appRoute, onSignInClick, onSignOutClick, onRouteChange, onRegisterClick}) => {
   // to remove
     // fetch('http://localhost:3000')
     //   .then(response => response.json())
@@ -22,7 +21,7 @@ const App = ({signedIn,appRoute, onSignOutClick, onRouteChange}) => {
   const appBody = (route) => {
     switch (route) {
       case 'sign_in':
-        return <SignInPage singedIn={signedIn}/>;
+        return <SignInPage onSignInClick={onSignInClick} onRouteChange={onRouteChange}/>;
       case 'home':
         return <div>
                     <Logo/>
@@ -31,7 +30,7 @@ const App = ({signedIn,appRoute, onSignOutClick, onRouteChange}) => {
                     <FaceRecognition/>
                   </div>;
         case 'register':
-          return <RegisterPage/>
+          return <RegisterPage onRegisterClick={onRegisterClick}/>
         default:
           return <div></div>;
     }

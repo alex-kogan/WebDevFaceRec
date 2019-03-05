@@ -1,11 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
-import {signIn, routeChange} from '../../Actions';
-
-// hybrid component
-
-const SignInPage = ({dispatch, singedIn}) => {
+const SignInPage = ({onSignInClick, onRouteChange}) => {
   let signInData = {
     email: '',
     password: ''
@@ -43,17 +38,14 @@ const SignInPage = ({dispatch, singedIn}) => {
               onClick={() => {
                 signInData.email = document.getElementById('email-address').value;
                 signInData.password = document.getElementById('password').value;
-                dispatch(signIn(signInData));
+                onSignInClick(signInData);
                 }
               }
             />
           </div>
           <div className="lh-copy mt3">
             <p className="f6 link dim black db pointer"
-              onClick={() => {
-                dispatch(routeChange('register'))
-                }
-              }>
+              onClick={() => {onRouteChange('register')}}>
               Register
             </p>
           </div>
@@ -63,4 +55,4 @@ const SignInPage = ({dispatch, singedIn}) => {
   );
 }
 
-export default connect()(SignInPage);
+export default SignInPage
