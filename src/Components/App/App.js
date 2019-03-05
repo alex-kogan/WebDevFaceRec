@@ -11,7 +11,7 @@ import Rank from '../../Components/Rank/Rank';
 
 import './App.css';
 
-const App = ({signedIn,appRoute, onSignInClick, onSignOutClick, onRouteChange, onRegisterClick}) => {
+const App = ({signInStatus,appRoute, userData, onSignInClick, onSignOutClick, onRouteChange, onRegisterClick}) => {
   // to remove
     // fetch('http://localhost:3000')
     //   .then(response => response.json())
@@ -25,7 +25,7 @@ const App = ({signedIn,appRoute, onSignInClick, onSignOutClick, onRouteChange, o
       case 'home':
         return <div>
                     <Logo/>
-                    <Rank/>
+                    <Rank userName={userData.name} userEntries={userData.entries}/>
                     <InputImage/>
                     <FaceRecognition/>
                   </div>;
@@ -37,7 +37,7 @@ const App = ({signedIn,appRoute, onSignInClick, onSignOutClick, onRouteChange, o
   }
   // end routing          
   return <div className='AppStyle'>
-      <Navigation singedIn={signedIn} onSignOutClick={onSignOutClick} onRouteChange={onRouteChange}/>
+      <Navigation singedIn={signInStatus} onSignOutClick={onSignOutClick} onRouteChange={onRouteChange}/>
       {appBody(appRoute)}
     </div>
   }

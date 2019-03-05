@@ -14,7 +14,7 @@ export const detectionButton = (state=initialStateDetection, action={}) => {
 		case appConstants.FACE_DETECTION_SUCCESS:
 			return Object.assign({}, state, {detectedFaces: action.payload, isDetecting: false});
 		case appConstants.FACE_DETECTION_FAIL:
-			return Object.assign({}, state, {error: action.payload,isDetecting: false});
+			return Object.assign({}, state, {error: action.payload, detectedFaces: [], isDetecting: false});
 		default:
 			return state;
 	}

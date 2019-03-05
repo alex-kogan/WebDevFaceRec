@@ -7,7 +7,8 @@ import {routeChange, signOut, signIn, register} from '../Actions'
 const mapStateToProps = (state) => {
   return {
     appRoute: state.appRoute.route,
-    signedIn: state.signInStatus.signIn
+    signInStatus: state.signInStatus.signInStatus,
+    userData: state.userData
   }
 }
 
