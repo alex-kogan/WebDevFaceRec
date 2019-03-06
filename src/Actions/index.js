@@ -4,7 +4,8 @@ import {appConstants} from '../Constants.js';
 
 const Clarifai = require('clarifai');
 
-const serverAddress = 'http://localhost:3000/';
+// const serverAddress = 'http://localhost:3000/';
+const serverAddress =  'https://sleepy-falls-75821.herokuapp.com/';
 
 export const setImageInput = (imageURL) => ({
 	type: appConstants.CHANGE_IMAGE_INPUT,
@@ -102,7 +103,7 @@ export const register = (data) => (dispatch) =>  {
 	})
 	.then(response => response.json())
 	.then(user => {
-		if (user) {
+		if (user.id) {
 			dispatch ({type: appConstants.REGISTER, payload: true});
 			dispatch ({type: appConstants.USER_DATA_UPDATE, payload: user});
 			dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'home'});
