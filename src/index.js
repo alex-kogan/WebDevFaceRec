@@ -15,7 +15,7 @@ import {rootReducer} from './Reducers';
 
 let store;
 
-if (process.env.NODE_ENV !== 'production'){
+if (process.env.REACT_APP_STAGE !== 'production'){
 	const logger = createLogger();
 	store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 }
