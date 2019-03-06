@@ -38,6 +38,8 @@ const SignInPage = ({onSignInClick, onRouteChange}) => {
               onClick={() => {
                 signInData.email = document.getElementById('email-address').value;
                 signInData.password = document.getElementById('password').value;
+                document.getElementById('email-address').value='';
+                document.getElementById('password').value='';
                 onSignInClick(signInData);
                 }
               }

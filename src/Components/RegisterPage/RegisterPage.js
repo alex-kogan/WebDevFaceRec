@@ -49,6 +49,9 @@ const RegisterPage = ({onRegisterClick}) => {
                 registerData.name = document.getElementById('name').value;
                 registerData.email = document.getElementById('email-address').value;
                 registerData.password = document.getElementById('password').value;
+                document.getElementById('name').value='';
+                document.getElementById('email-address').value='';
+                document.getElementById('password').value='';
                 onRegisterClick(registerData);
                 }
               }

@@ -13,8 +13,15 @@ import './index.css';
 import App from './Containers/Router';
 import {rootReducer} from './Reducers';
 
-const logger = createLogger();
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
+let store;
+
+if (process.env.NODE_ENV !== 'production'){
+	const logger = createLogger();
+	store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
+}
+else {
+	store = createStore(rootReducer, applyMiddleware(thunkMiddleware));	
+}
 
 ReactDOM.render(<Provider store={store}>
 					<App/>
