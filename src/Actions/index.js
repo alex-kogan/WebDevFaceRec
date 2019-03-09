@@ -72,7 +72,24 @@ export const routeChange = (destination) => {
 	return ({type: appConstants.ROUTE_CHANGE, payload: destination});
 };
 
-export const signIn = (data) => (dispatch) => {
+export const checkRemeberMe = () => (dispatch) => {
+	const userId = sessionStorage.getItem('userId');
+	if (userId) {
+		fetch(serverAddress+'profile/'+userId, {
+			method: 'get',
+			headers: {'Content-Type': 'application/json'},
+		})
+		.then(response => response.json())
+		.then(user => {
+			console.log(user)
+			dispatch ({type: appConstants.SIGN_IN, payload: true});
+			dispatch ({type: appConstants.USER_DATA_UPDATE, payload: user});
+			dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'home'});
+		})
+	}
+};
+
+export const signIn = (data) => (dispatch, getState) => {
 	fetch(serverAddress+'signin', {
 		method: 'post',
 		headers: {'Content-Type': 'application/json'},
@@ -84,12 +101,20 @@ export const signIn = (data) => (dispatch) => {
 	.then(response => response.json())
 	.then(user => {
 		if (user.id) {
+			if (getState().signInStatus.rememberMeStatus) {
+				sessionStorage.setItem('userId',user.id)
+				console.log('alex')
+			}
 			dispatch ({type: appConstants.SIGN_IN, payload: true});
 			dispatch ({type: appConstants.USER_DATA_UPDATE, payload: user});
 			dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'home'});
 		}
 	})
 };
+
+export const rememberMe = (checkboxStatus) => {
+	return ({type: appConstants.REMEMBER_ME, payload:checkboxStatus})
+}
 
 export const register = (data) => (dispatch) =>  {
 	fetch(serverAddress+'register', {
@@ -112,6 +137,7 @@ export const register = (data) => (dispatch) =>  {
 };
 
 export const signOut = () => (dispatch) => {
+	sessionStorage.clear();
 	dispatch ({type: appConstants.SIGN_OUT, payload: false});
 	dispatch ({type: appConstants.ROUTE_CHANGE, payload: 'sign_in'});
 };

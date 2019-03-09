@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignInPage = ({onSignInClick, onRouteChange}) => {
+const SignInPage = ({onSignInClick, onRouteChange, onRememberMe}) => {
   let signInData = {
     email: '',
     password: ''
@@ -29,6 +29,9 @@ const SignInPage = ({onSignInClick, onRouteChange}) => {
                 id="password"
               />
             </div>
+             <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox"
+              onChange={onRememberMe}
+             /> Remember me </label>
           </fieldset>
           <div className="">
             <input

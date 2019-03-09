@@ -11,7 +11,9 @@ import Rank from '../../Components/Rank/Rank';
 
 import './App.css';
 
-const App = ({signInStatus,appRoute, userData, onSignInClick, onSignOutClick, onRouteChange, onRegisterClick}) => {
+const App = ({onLoad,
+              signInStatus,appRoute, userData,
+              onSignInClick, onRememberMe, onSignOutClick, onRouteChange, onRegisterClick}) => {
   // to remove
     // fetch('http://localhost:3000')
     //   .then(response => response.json())
@@ -21,7 +23,8 @@ const App = ({signInStatus,appRoute, userData, onSignInClick, onSignOutClick, on
   const appBody = (route) => {
     switch (route) {
       case 'sign_in':
-        return <SignInPage onSignInClick={onSignInClick} onRouteChange={onRouteChange}/>;
+        onLoad()
+        return <SignInPage onSignInClick={onSignInClick} onRouteChange={onRouteChange} onRememberMe={onRememberMe}/>;
       case 'home':
         return <div>
                     <Logo/>
